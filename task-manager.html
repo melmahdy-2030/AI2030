@@ -643,9 +643,9 @@
     </div>
     <div class="sidebar-footer">
       <div class="user-chip">
-        <div class="user-avatar">EM</div>
+        <div class="user-avatar">ME</div>
         <div>
-          <div class="user-name">Dr. ElMahdy</div>
+          <div class="user-name">Mh. ElMahdy</div>
           <div class="user-role">IT Ops Manager</div>
         </div>
       </div>
@@ -808,7 +808,7 @@
         <div class="form-group">
           <label class="form-label">Assigned To *</label>
           <select class="form-control" id="f-assignee">
-            <option>Dr. ElMahdy</option>
+            <option>Mh. ElMahdy</option>
             <option>Ahmed Al-Rashidi</option>
             <option>Sara Al-Otaibi</option>
             <option>Khalid Mansour</option>
@@ -820,7 +820,7 @@
         <div class="form-group">
           <label class="form-label">Created By</label>
           <select class="form-control" id="f-creator">
-            <option>Dr. ElMahdy</option>
+            <option>Mh. ElMahdy</option>
             <option>Ahmed Al-Rashidi</option>
             <option>Sara Al-Otaibi</option>
             <option>Khalid Mansour</option>
@@ -888,15 +888,15 @@
 </div>
 
 <script>
-// ── Data ──────────────────────────────────────────────────────────────────────
+// ── Data ───────────────────────────────────────────────────────────────
 let tasks = JSON.parse(localStorage.getItem('taskflow_tasks') || '[]');
 let editingId = null;
 let currentView = 'all';
 let sortField = null, sortDir = 1;
 
-const USERS = ['Dr. ElMahdy','Ahmed Al-Rashidi','Sara Al-Otaibi','Khalid Mansour','Nora Al-Zahrani','Omar Saleh','Fatima Al-Qahtani'];
+const USERS = ['Mh. ElMahdy','Ahmed Al-Rashidi','Sara Al-Otaibi','Khalid Mansour','Nora Al-Zahrani','Omar Saleh','Fatima Al-Qahtani'];
 const COLORS = {
-  'Dr. ElMahdy':'#4f8ef7',
+  'Mh. ElMahdy':'#4f8ef7',
   'Ahmed Al-Rashidi':'#7c5cfc',
   'Sara Al-Otaibi':'#3ecf8e',
   'Khalid Mansour':'#f7b84f',
@@ -908,13 +908,13 @@ const COLORS = {
 // Seed data
 if (tasks.length === 0) {
   tasks = [
-    { id: 'TF-001', title: 'Oracle Fusion HR Module Integration', description: 'Complete the competency library mapping and upload to Oracle Fusion Talent Management.', status: 'In Progress', priority: 'Critical', assignee: 'Dr. ElMahdy', creator: 'Dr. ElMahdy', category: 'Oracle Fusion ERP', dueDate: '2025-06-30', startDate: '2025-05-01', estimatedHours: 40, progress: 60, notes: 'Aligned with SAQF & NCAAA frameworks.', createdAt: '2025-05-01', comments: [{author:'Dr. ElMahdy', text:'Started bilingual descriptions for senior roles.', time:'2025-05-10'}] },
-    { id: 'TF-002', title: 'Cloud Migration Phase 2 Planning', description: 'Prepare architecture diagram and migration runbook for Phase 2 workloads.', status: 'Todo', priority: 'High', assignee: 'Ahmed Al-Rashidi', creator: 'Dr. ElMahdy', category: 'Cloud Migration', dueDate: '2025-07-15', startDate: '2025-06-01', estimatedHours: 24, progress: 0, notes: '', createdAt: '2025-05-08', comments: [] },
-    { id: 'TF-003', title: 'Data Governance Policy Review', description: 'Review and finalize the Data Lifecycle Management Policy for Sulaiman Al Rajhi University.', status: 'In Review', priority: 'High', assignee: 'Sara Al-Otaibi', creator: 'Dr. ElMahdy', category: 'Data Governance', dueDate: '2025-05-31', startDate: '2025-04-20', estimatedHours: 16, progress: 85, notes: 'Arabic & English versions required.', createdAt: '2025-04-20', comments: [{author:'Sara Al-Otaibi', text:'Draft completed, sent for legal review.', time:'2025-05-12'}] },
-    { id: 'TF-004', title: 'Cybersecurity Awareness Training', description: 'Develop training content on secure file storage and data protection for all staff.', status: 'Todo', priority: 'Medium', assignee: 'Khalid Mansour', creator: 'Dr. ElMahdy', category: 'Cybersecurity', dueDate: '2025-08-01', startDate: '2025-06-15', estimatedHours: 20, progress: 0, notes: '', createdAt: '2025-05-05', comments: [] },
-    { id: 'TF-005', title: 'Tidio Chatbot Knowledge Base Build', description: 'Build structured Q&A content for the university website chatbot covering admissions, registration, and IT services.', status: 'In Progress', priority: 'Medium', assignee: 'Nora Al-Zahrani', creator: 'Dr. ElMahdy', category: 'Digital Transformation', dueDate: '2025-06-15', startDate: '2025-05-10', estimatedHours: 30, progress: 35, notes: '', createdAt: '2025-05-10', comments: [] },
-    { id: 'TF-006', title: 'DBA Research Proposal Draft', description: 'Prepare a DBA-level research proposal aligned with Business Research Methods 1 course requirements.', status: 'Blocked', priority: 'High', assignee: 'Dr. ElMahdy', creator: 'Dr. ElMahdy', category: 'Training & Development', dueDate: '2025-06-01', startDate: '2025-05-01', estimatedHours: 12, progress: 20, notes: 'Blocked pending supervisor confirmation of topic.', createdAt: '2025-05-01', comments: [{author:'Dr. ElMahdy', text:'Awaiting topic approval from ESLSCA.', time:'2025-05-09'}] },
-    { id: 'TF-007', title: 'Student Portal Digitalization Rollout', description: 'Launch the updated student services portal with e-registration and e-payment features.', status: 'Done', priority: 'Critical', assignee: 'Omar Saleh', creator: 'Dr. ElMahdy', category: 'Student Services', dueDate: '2025-05-10', startDate: '2025-03-01', estimatedHours: 80, progress: 100, notes: 'Deployed to production on 2025-05-10.', createdAt: '2025-03-01', comments: [{author:'Omar Saleh', text:'Go-live successful, UAT signed off.', time:'2025-05-10'}] },
+    { id: 'TF-001', title: 'Oracle Fusion HR Module Integration', description: 'Complete the competency library mapping and upload to Oracle Fusion Talent Management.', status: 'In Progress', priority: 'Critical', assignee: 'Mh. ElMahdy', creator: 'Mh. ElMahdy', category: 'Oracle Fusion ERP', dueDate: '2026-06-15', startDate: '2026-05-01', hours: 16, progress: 65, notes: 'On track for mid-June delivery.' },
+    { id: 'TF-002', title: 'Cloud Migration Phase 2 Planning', description: 'Prepare architecture diagram and migration runbook for Phase 2 workloads.', status: 'Todo', priority: 'High', assignee: 'Ahmed Al-Rashidi', creator: 'Mh. ElMahdy', category: 'Cloud Migration', dueDate: '2026-07-01', startDate: '2026-05-20', hours: 20, progress: 10, notes: '' },
+    { id: 'TF-003', title: 'Data Governance Policy Review', description: 'Review and finalize the Data Lifecycle Management Policy for Sulaiman Al Rajhi University.', status: 'In Review', priority: 'High', assignee: 'Sara Al-Otaibi', creator: 'Mh. ElMahdy', category: 'Data Governance', dueDate: '2026-06-01', startDate: '2026-04-15', hours: 12, progress: 80, notes: 'Awaiting stakeholder sign-off.' },
+    { id: 'TF-004', title: 'Cybersecurity Awareness Training', description: 'Develop training content on secure file storage and data protection for all staff.', status: 'Todo', priority: 'Medium', assignee: 'Khalid Mansour', creator: 'Mh. ElMahdy', category: 'Cybersecurity', dueDate: '2026-08-15', startDate: '2026-06-01', hours: 24, progress: 0, notes: '' },
+    { id: 'TF-005', title: 'Tidio Chatbot Knowledge Base Build', description: 'Build structured Q&A content for the university website chatbot covering admissions, registration, and IT services.', status: 'In Progress', priority: 'High', assignee: 'Nora Al-Zahrani', creator: 'Mh. ElMahdy', category: 'Student Services', dueDate: '2026-06-30', startDate: '2026-05-10', hours: 30, progress: 45, notes: 'Content module 1 & 2 complete.' },
+    { id: 'TF-006', title: 'DBA Research Proposal Draft', description: 'Prepare a DBA-level research proposal aligned with Business Research Methods 1 course requirements.', status: 'Blocked', priority: 'Medium', assignee: 'Omar Saleh', creator: 'Mh. ElMahdy', category: 'Training & Development', dueDate: '2026-06-20', startDate: '2026-05-15', hours: 15, progress: 30, notes: 'Awaiting research advisor feedback.' },
+    { id: 'TF-007', title: 'Student Portal Digitalization Rollout', description: 'Launch the updated student services portal with e-registration and e-payment features.', status: 'Done', priority: 'Critical', assignee: 'Fatima Al-Qahtani', creator: 'Mh. ElMahdy', category: 'Student Services', dueDate: '2026-05-10', startDate: '2026-03-01', hours: 40, progress: 100, notes: 'Successfully deployed on May 10, 2026.' }
   ];
   saveTasks();
 }
@@ -925,7 +925,7 @@ function saveTasks() {
   populateAssigneeFilter();
 }
 
-// ── Stats ─────────────────────────────────────────────────────────────────────
+// ── Stats ───────────────────────────────────────────────────────────────
 function updateStats() {
   document.getElementById('stat-total').textContent = tasks.length;
   document.getElementById('stat-inprogress').textContent = tasks.filter(t=>t.status==='In Progress').length;
@@ -934,7 +934,7 @@ function updateStats() {
   document.getElementById('badge-all').textContent = tasks.length;
 }
 
-// ── Render ────────────────────────────────────────────────────────────────────
+// ── Render ───────────────────────────────────────────────────────────────
 function getInitials(name) { return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
 
 function avatarHtml(name, size=26) {
@@ -998,69 +998,70 @@ function renderTable(list) {
           <span style="font-size:11px;color:var(--text2)">${t.progress}%</span>
         </div>
       </td>
-      <td onclick="event.stopPropagation()">
+      <td>
         <div class="row-actions">
-          <button class="btn btn-ghost btn-sm" onclick="editTask('${t.id}')">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteTask('${t.id}')">🗑</button>
+          <button class="btn btn-sm btn-ghost" onclick="event.stopPropagation(); editTask('${t.id}')">✏️</button>
+          <button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); deleteTask('${t.id}')">🗑</button>
         </div>
       </td>
     </tr>`;
   }).join('');
 }
 
-function renderKanban(list) {
-  const cols = ['Todo','In Progress','In Review','Done','Blocked'];
-  cols.forEach(s => {
-    const col = document.getElementById('k-'+s);
-    if (!col) return;
-    const items = list.filter(t=>t.status===s);
-    if (!items.length) {
-      col.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">No tasks</div>`;
-      return;
-    }
-    col.innerHTML = items.map(t=>`
-      <div class="kanban-card" onclick="viewTask('${t.id}')">
-        <div class="kanban-card-title">${t.title}</div>
-        <div style="font-size:11px;color:var(--text3);margin-bottom:8px">${t.category||''}</div>
-        <div class="kanban-card-meta">
-          ${priorityBadge(t.priority)}
-          <div class="mini-avatar">${avatarHtml(t.assignee,22)}<span style="font-size:11px">${t.assignee.split(' ')[0]}</span></div>
-        </div>
-        ${t.dueDate?`<div style="font-size:11px;color:${isOverdue(t.dueDate,t.status)?'var(--danger)':'var(--text3)'};margin-top:8px">📅 ${t.dueDate}</div>`:''}
-        <div style="margin-top:8px"><div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:${t.progress}%"></div></div></div>
-      </div>`).join('');
-  });
+// ── View ───────────────────────────────────────────────────────────────
+function setView(view) {
+  currentView = view;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  event.target.closest('.nav-item').classList.add('active');
+  const subtitle = { 'all': 'All tasks across the workspace', 'my': 'Tasks assigned to you', 'assigned': 'Tasks assigned by you' };
+  document.getElementById('view-subtitle').textContent = subtitle[view] || '';
+  applyFilters();
 }
 
-// ── Filter & Sort ─────────────────────────────────────────────────────────────
-function getFilteredTasks() {
-  const q = document.getElementById('search-input').value.toLowerCase();
-  const fs = document.getElementById('filter-status').value;
-  const fp = document.getElementById('filter-priority').value;
-  const fa = document.getElementById('filter-assignee').value;
-  let list = [...tasks];
+function filterSidebar(status) {
+  document.getElementById('filter-status').value = status;
+  applyFilters();
+}
 
-  if (currentView === 'my') list = list.filter(t => t.assignee === 'Dr. ElMahdy');
-  if (currentView === 'assigned') list = list.filter(t => t.creator === 'Dr. ElMahdy' && t.assignee !== 'Dr. ElMahdy');
+function switchView(view) {
+  document.getElementById('btn-table').classList.toggle('active', view === 'table');
+  document.getElementById('btn-kanban').classList.toggle('active', view === 'kanban');
+  document.getElementById('table-view').classList.toggle('active', view === 'table');
+  document.getElementById('kanban-view').classList.toggle('active', view === 'kanban');
+  renderKanban();
+}
 
-  if (q) list = list.filter(t => t.title.toLowerCase().includes(q) || (t.description||'').toLowerCase().includes(q) || t.id.toLowerCase().includes(q));
-  if (fs) list = list.filter(t => t.status === fs);
-  if (fp) list = list.filter(t => t.priority === fp);
-  if (fa) list = list.filter(t => t.assignee === fa);
-
+// ── Filter & Sort ───────────────────────────────────────────────────────
+function applyFilters() {
+  let filtered = tasks;
+  
+  if (currentView === 'my') filtered = filtered.filter(t => t.assignee === 'Mh. ElMahdy');
+  if (currentView === 'assigned') filtered = filtered.filter(t => t.creator === 'Mh. ElMahdy');
+  
+  const statusFilter = document.getElementById('filter-status').value;
+  const priorityFilter = document.getElementById('filter-priority').value;
+  const assigneeFilter = document.getElementById('filter-assignee').value;
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  
+  if (statusFilter) filtered = filtered.filter(t => t.status === statusFilter);
+  if (priorityFilter) filtered = filtered.filter(t => t.priority === priorityFilter);
+  if (assigneeFilter) filtered = filtered.filter(t => t.assignee === assigneeFilter);
+  if (searchTerm) filtered = filtered.filter(t => 
+    t.title.toLowerCase().includes(searchTerm) ||
+    t.id.toLowerCase().includes(searchTerm) ||
+    (t.description || '').toLowerCase().includes(searchTerm)
+  );
+  
   if (sortField) {
-    list.sort((a,b)=>{
-      let va = a[sortField]||'', vb = b[sortField]||'';
-      return va < vb ? -sortDir : va > vb ? sortDir : 0;
+    filtered.sort((a, b) => {
+      let aVal = a[sortField], bVal = b[sortField];
+      if (typeof aVal === 'string') return (aVal > bVal ? 1 : -1) * sortDir;
+      return (aVal - bVal) * sortDir;
     });
   }
-  return list;
-}
-
-function applyFilters() {
-  const list = getFilteredTasks();
-  renderTable(list);
-  renderKanban(list);
+  
+  renderTable(filtered);
+  updateStats();
 }
 
 function sortTable(field) {
@@ -1069,245 +1070,228 @@ function sortTable(field) {
   applyFilters();
 }
 
-function filterSidebar(status) {
-  document.getElementById('filter-status').value = status;
-  currentView = 'all';
-  applyFilters();
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-}
-
-function setView(v) {
-  currentView = v;
-  document.getElementById('filter-status').value = '';
-  const subtitles = { all:'All tasks across the workspace', my:'Tasks assigned to you', assigned:'Tasks you created for others' };
-  document.getElementById('view-subtitle').textContent = subtitles[v]||'';
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  applyFilters();
-}
-
-function populateAssigneeFilter() {
-  const sel = document.getElementById('filter-assignee');
-  const current = sel.value;
-  sel.innerHTML = '<option value="">All Assignees</option>';
-  USERS.forEach(u => { const o=document.createElement('option'); o.value=u; o.textContent=u; sel.appendChild(o); });
-  sel.value = current;
-}
-
-function switchView(v) {
-  document.getElementById('table-view').classList.toggle('active', v==='table');
-  document.getElementById('table-view').classList.toggle('hidden', v!=='table');
-  document.getElementById('kanban-view').classList.toggle('active', v==='kanban');
-  document.getElementById('btn-table').classList.toggle('active', v==='table');
-  document.getElementById('btn-kanban').classList.toggle('active', v==='kanban');
-  applyFilters();
-}
-
-// ── CRUD ──────────────────────────────────────────────────────────────────────
-function generateId() {
-  const max = tasks.reduce((m,t) => Math.max(m, parseInt(t.id.split('-')[1]||0)), 0);
-  return 'TF-' + String(max+1).padStart(3,'0');
-}
+// ── Modals & CRUD ───────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 function openNewTask() {
   editingId = null;
   document.getElementById('modal-title').textContent = 'New Task';
-  ['title','desc','notes'].forEach(f => document.getElementById('f-'+f).value='');
-  document.getElementById('f-status').value='Todo';
-  document.getElementById('f-priority').value='Medium';
-  document.getElementById('f-assignee').value='Dr. ElMahdy';
-  document.getElementById('f-creator').value='Dr. ElMahdy';
-  document.getElementById('f-category').value='IT Operations';
-  document.getElementById('f-due').value='';
-  document.getElementById('f-start').value='';
-  document.getElementById('f-hours').value='';
-  document.getElementById('f-progress').value=0;
-  document.getElementById('progress-val').textContent=0;
-  document.getElementById('task-modal').classList.add('open');
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-status').value = 'Todo';
+  document.getElementById('f-priority').value = 'Medium';
+  document.getElementById('f-assignee').value = 'Mh. ElMahdy';
+  document.getElementById('f-creator').value = 'Mh. ElMahdy';
+  document.getElementById('f-category').value = '';
+  document.getElementById('f-due').value = '';
+  document.getElementById('f-start').value = '';
+  document.getElementById('f-hours').value = '';
+  document.getElementById('f-progress').value = 0;
+  document.getElementById('progress-val').textContent = '0';
+  document.getElementById('f-notes').value = '';
+  openModal('task-modal');
 }
 
-function editTask(id, fromDetail=false) {
-  const t = tasks.find(x=>x.id===id);
+function editTask(id) {
+  const t = tasks.find(x => x.id === id);
   if (!t) return;
   editingId = id;
-  document.getElementById('modal-title').textContent = 'Edit Task — ' + id;
+  document.getElementById('modal-title').textContent = `Edit ${id}`;
   document.getElementById('f-title').value = t.title;
-  document.getElementById('f-desc').value = t.description||'';
+  document.getElementById('f-desc').value = t.description || '';
   document.getElementById('f-status').value = t.status;
   document.getElementById('f-priority').value = t.priority;
   document.getElementById('f-assignee').value = t.assignee;
   document.getElementById('f-creator').value = t.creator;
-  document.getElementById('f-category').value = t.category||'Other';
-  document.getElementById('f-due').value = t.dueDate||'';
-  document.getElementById('f-start').value = t.startDate||'';
-  document.getElementById('f-hours').value = t.estimatedHours||'';
-  document.getElementById('f-progress').value = t.progress||0;
-  document.getElementById('progress-val').textContent = t.progress||0;
-  document.getElementById('f-notes').value = t.notes||'';
-  if (fromDetail) closeModal('detail-modal');
-  document.getElementById('task-modal').classList.add('open');
+  document.getElementById('f-category').value = t.category || '';
+  document.getElementById('f-due').value = t.dueDate || '';
+  document.getElementById('f-start').value = t.startDate || '';
+  document.getElementById('f-hours').value = t.hours || '';
+  document.getElementById('f-progress').value = t.progress || 0;
+  document.getElementById('progress-val').textContent = t.progress || 0;
+  document.getElementById('f-notes').value = t.notes || '';
+  openModal('task-modal');
 }
 
 function saveTask() {
   const title = document.getElementById('f-title').value.trim();
-  if (!title) { showToast('⚠️ Task title is required','var(--warning)'); return; }
-  const task = {
-    id: editingId || generateId(),
-    title,
-    description: document.getElementById('f-desc').value.trim(),
-    status: document.getElementById('f-status').value,
-    priority: document.getElementById('f-priority').value,
-    assignee: document.getElementById('f-assignee').value,
-    creator: document.getElementById('f-creator').value,
-    category: document.getElementById('f-category').value,
-    dueDate: document.getElementById('f-due').value,
-    startDate: document.getElementById('f-start').value,
-    estimatedHours: parseInt(document.getElementById('f-hours').value)||0,
-    progress: parseInt(document.getElementById('f-progress').value)||0,
-    notes: document.getElementById('f-notes').value.trim(),
-    createdAt: editingId ? (tasks.find(x=>x.id===editingId)||{}).createdAt : new Date().toISOString().slice(0,10),
-    comments: editingId ? (tasks.find(x=>x.id===editingId)||{}).comments||[] : []
-  };
+  if (!title) { alert('Task title is required'); return; }
+  
   if (editingId) {
-    const i = tasks.findIndex(x=>x.id===editingId);
-    tasks[i] = task;
-    showToast('✅ Task updated successfully','var(--success)');
+    const t = tasks.find(x => x.id === editingId);
+    t.title = title;
+    t.description = document.getElementById('f-desc').value;
+    t.status = document.getElementById('f-status').value;
+    t.priority = document.getElementById('f-priority').value;
+    t.assignee = document.getElementById('f-assignee').value;
+    t.creator = document.getElementById('f-creator').value;
+    t.category = document.getElementById('f-category').value;
+    t.dueDate = document.getElementById('f-due').value;
+    t.startDate = document.getElementById('f-start').value;
+    t.hours = parseInt(document.getElementById('f-hours').value) || 0;
+    t.progress = parseInt(document.getElementById('f-progress').value) || 0;
+    t.notes = document.getElementById('f-notes').value;
   } else {
-    tasks.unshift(task);
-    showToast('✅ Task created: ' + task.id,'var(--success)');
+    const newId = 'TF-' + String(tasks.length + 1).padStart(3, '0');
+    tasks.push({
+      id: newId,
+      title,
+      description: document.getElementById('f-desc').value,
+      status: document.getElementById('f-status').value,
+      priority: document.getElementById('f-priority').value,
+      assignee: document.getElementById('f-assignee').value,
+      creator: document.getElementById('f-creator').value,
+      category: document.getElementById('f-category').value,
+      dueDate: document.getElementById('f-due').value,
+      startDate: document.getElementById('f-start').value,
+      hours: parseInt(document.getElementById('f-hours').value) || 0,
+      progress: parseInt(document.getElementById('f-progress').value) || 0,
+      notes: document.getElementById('f-notes').value
+    });
   }
   saveTasks();
-  applyFilters();
   closeModal('task-modal');
+  showToast(editingId ? '✏️ Task updated' : '➕ Task created');
+  applyFilters();
 }
 
 function deleteTask(id) {
-  if (!confirm('Delete task ' + id + '? This cannot be undone.')) return;
-  tasks = tasks.filter(t=>t.id!==id);
+  if (!confirm('Delete this task?')) return;
+  tasks = tasks.filter(t => t.id !== id);
   saveTasks();
-  applyFilters();
   closeModal('detail-modal');
-  showToast('🗑 Task deleted','var(--danger)');
+  showToast('🗑 Task deleted');
+  applyFilters();
 }
 
-// ── Detail View ───────────────────────────────────────────────────────────────
 function viewTask(id) {
-  const t = tasks.find(x=>x.id===id);
+  const t = tasks.find(x => x.id === id);
   if (!t) return;
-  document.getElementById('detail-task-title').textContent = t.id + ' — ' + t.title;
-  document.getElementById('detail-edit-btn').onclick = () => editTask(id, true);
-  document.getElementById('detail-delete-btn').onclick = () => deleteTask(id);
-
-  const commentsHtml = (t.comments||[]).length
-    ? (t.comments||[]).map(c=>`
-      <div class="comment">
-        ${avatarHtml(c.author,30)}
-        <div class="comment-body">
-          <span class="comment-author">${c.author}</span>
-          <span class="comment-time">${c.time}</span>
-          <div class="comment-text">${c.text}</div>
-        </div>
-      </div>`).join('')
-    : '<div style="color:var(--text3);font-size:13px">No comments yet.</div>';
-
-  document.getElementById('detail-body').innerHTML = `
-    <div class="detail-section">
-      <div class="detail-section-title">Overview</div>
-      <div style="font-size:14px;color:var(--text2);margin-bottom:16px">${t.description||'No description provided.'}</div>
-      <div class="detail-row">
-        <div class="detail-item"><div class="detail-label">Status</div><div>${statusBadge(t.status)}</div></div>
-        <div class="detail-item"><div class="detail-label">Priority</div><div>${priorityBadge(t.priority)}</div></div>
-        <div class="detail-item"><div class="detail-label">Category</div><div class="detail-value">${t.category||'—'}</div></div>
+  
+  const html = `
+  <div class="detail-section">
+    <div class="detail-section-title">Overview</div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <div class="detail-label">ID</div>
+        <div class="detail-value">${t.id}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Status</div>
+        <div class="detail-value">${statusBadge(t.status)}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Priority</div>
+        <div class="detail-value">${priorityBadge(t.priority)}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Progress</div>
+        <div class="detail-value">${t.progress}%</div>
       </div>
     </div>
-    <div class="detail-section">
-      <div class="detail-section-title">People</div>
-      <div class="detail-row">
-        <div class="detail-item">
-          <div class="detail-label">Assigned To</div>
-          <div class="mini-avatar" style="margin-top:4px">${avatarHtml(t.assignee,28)}<span>${t.assignee}</span></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Created By</div>
-          <div class="mini-avatar" style="margin-top:4px">${avatarHtml(t.creator,28)}<span>${t.creator}</span></div>
-        </div>
+  </div>
+  <div class="detail-section">
+    <div class="detail-section-title">Description</div>
+    <div style="color:var(--text2);font-size:14px;line-height:1.6">${t.description || 'No description'}</div>
+  </div>
+  <div class="detail-section">
+    <div class="detail-section-title">Assignment & Dates</div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <div class="detail-label">Assigned To</div>
+        <div class="detail-value"><div class="mini-avatar">${avatarHtml(t.assignee, 20)}<span>${t.assignee}</span></div></div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Created By</div>
+        <div class="detail-value"><div class="mini-avatar">${avatarHtml(t.creator, 20)}<span>${t.creator}</span></div></div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Due Date</div>
+        <div class="detail-value">${t.dueDate || '—'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Start Date</div>
+        <div class="detail-value">${t.startDate || '—'}</div>
       </div>
     </div>
-    <div class="detail-section">
-      <div class="detail-section-title">Timeline & Progress</div>
-      <div class="detail-row">
-        <div class="detail-item"><div class="detail-label">Start Date</div><div class="detail-value">${t.startDate||'—'}</div></div>
-        <div class="detail-item"><div class="detail-label">Due Date</div><div class="detail-value" style="${isOverdue(t.dueDate,t.status)?'color:var(--danger)':''}">${t.dueDate||'—'}${isOverdue(t.dueDate,t.status)?' ⚠️ Overdue':''}</div></div>
-        <div class="detail-item"><div class="detail-label">Estimated Hours</div><div class="detail-value">${t.estimatedHours||'—'} hrs</div></div>
-        <div class="detail-item"><div class="detail-label">Created At</div><div class="detail-value">${t.createdAt||'—'}</div></div>
+  </div>
+  <div class="detail-section">
+    <div class="detail-section-title">Details</div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <div class="detail-label">Category</div>
+        <div class="detail-value">${t.category || '—'}</div>
       </div>
-      <div>
-        <div class="detail-label" style="margin-bottom:8px">Progress — ${t.progress}%</div>
-        <div class="progress-bar" style="width:100%;height:8px">
-          <div class="progress-fill" style="width:${t.progress}%"></div>
-        </div>
+      <div class="detail-item">
+        <div class="detail-label">Est. Hours</div>
+        <div class="detail-value">${t.hours || 0}</div>
       </div>
     </div>
-    ${t.notes?`<div class="detail-section"><div class="detail-section-title">Notes</div><div style="font-size:14px;color:var(--text2)">${t.notes}</div></div>`:''}
-    <div class="detail-section">
-      <div class="detail-section-title">Comments</div>
-      <div class="comment-list" id="detail-comments">${commentsHtml}</div>
-      <div class="comment-input-row">
-        <input id="new-comment" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')addComment('${id}')">
-        <button class="btn btn-primary btn-sm" onclick="addComment('${id}')">Post</button>
-      </div>
-    </div>`;
-
-  document.getElementById('detail-modal').classList.add('open');
+  </div>
+  <div class="detail-section">
+    <div class="detail-section-title">Notes</div>
+    <div style="color:var(--text2);font-size:13px;background:var(--surface2);padding:12px;border-radius:8px;font-family:monospace">${t.notes || 'No notes'}</div>
+  </div>`;
+  
+  document.getElementById('detail-task-title').textContent = `${t.id} — ${t.title}`;
+  document.getElementById('detail-body').innerHTML = html;
+  document.getElementById('detail-edit-btn').onclick = () => { closeModal('detail-modal'); editTask(t.id); };
+  document.getElementById('detail-delete-btn').onclick = () => deleteTask(t.id);
+  openModal('detail-modal');
 }
 
-function addComment(taskId) {
-  const input = document.getElementById('new-comment');
-  const text = input.value.trim();
-  if (!text) return;
-  const t = tasks.find(x=>x.id===taskId);
-  if (!t) return;
-  t.comments = t.comments||[];
-  t.comments.push({ author:'Dr. ElMahdy', text, time: new Date().toISOString().slice(0,10) });
-  saveTasks();
-  viewTask(taskId);
-  showToast('💬 Comment added','var(--accent)');
+// ── Kanban ───────────────────────────────────────────────────────────────
+function renderKanban() {
+  ['Todo','In Progress','In Review','Done','Blocked'].forEach(status => {
+    const col = document.getElementById('k-' + status);
+    const filtered = tasks.filter(t => t.status === status);
+    col.innerHTML = filtered.map(t => `
+      <div class="kanban-card" onclick="viewTask('${t.id}')">
+        <div class="kanban-card-title">${t.title}</div>
+        <div class="kanban-card-meta">
+          <div class="mini-avatar">${avatarHtml(t.assignee, 18)}</div>
+          <span style="font-size:10px;color:var(--text2)">${t.progress}%</span>
+        </div>
+      </div>`).join('');
+  });
 }
 
-// ── Export CSV ────────────────────────────────────────────────────────────────
+// ── Export ───────────────────────────────────────────────────────────────
 function exportCSV() {
-  const list = getFilteredTasks();
-  const headers = ['ID','Title','Status','Priority','Assigned To','Created By','Category','Start Date','Due Date','Est. Hours','Progress (%)','Notes','Created At'];
-  const rows = list.map(t => [t.id,`"${t.title}"`,t.status,t.priority,t.assignee,t.creator,t.category||'',t.startDate||'',t.dueDate||'',t.estimatedHours||0,t.progress,`"${(t.notes||'').replace(/"/g,'""')}"`,t.createdAt||''].join(','));
-  const csv = [headers.join(','),...rows].join('\n');
+  const headers = ['ID','Title','Status','Priority','Assigned To','Created By','Due Date','Progress','Hours'];
+  const rows = tasks.map(t => [t.id,t.title,t.status,t.priority,t.assignee,t.creator,t.dueDate,t.progress,t.hours]);
+  const csv = [headers,...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'taskflow_export_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  showToast('📥 CSV exported','var(--success)');
+  a.href = url; a.download = 'tasks.csv'; a.click();
 }
 
-// ── Utilities ─────────────────────────────────────────────────────────────────
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-function showToast(msg, color='var(--accent)') {
-  const el = document.createElement('div');
-  el.className = 'toast';
-  el.style.borderLeft = '3px solid ' + color;
-  el.textContent = msg;
-  document.body.appendChild(el);
-  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(40px)'; el.style.transition='all 0.3s'; setTimeout(()=>el.remove(),300); }, 2800);
+// ── Assignee Filter Populate ────────────────────────────────────────────
+function populateAssigneeFilter() {
+  const filter = document.getElementById('filter-assignee');
+  const assignees = [...new Set(tasks.map(t => t.assignee))];
+  const selected = filter.value;
+  filter.innerHTML = '<option value="">All Assignees</option>' + assignees.map(a => `<option>${a}</option>`).join('');
+  filter.value = selected;
 }
 
-// Close modal on overlay click
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if(e.target===o) closeModal(o.id); });
+// ── Toast ───────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.animation = 'toastIn 0.3s reverse'; setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
+// ── Init ────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  applyFilters();
+  populateAssigneeFilter();
 });
-
-// ── Init ──────────────────────────────────────────────────────────────────────
-updateStats();
-populateAssigneeFilter();
-applyFilters();
 </script>
+
 </body>
 </html>
