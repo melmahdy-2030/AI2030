@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Task List Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      color: #222;
+    }
+
+    header {
+      background: #1f4e79;
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 96%;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      margin-top: 0;
+      color: #1f4e79;
+      border-bottom: 2px solid #e4e8ef;
+      padding-bottom: 10px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cfd6df;
+      border-radius: 7px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .full-width {
+      grid-column: span 4;
+    }
+
+    .half-width {
+      grid-column: span 2;
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 7px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #1f4e79;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #c0392b;
+      color: white;
+    }
+
+    .btn-success {
+      background: #218838;
+      color: white;
+    }
+
+    .btn-warning {
+      background: #f0ad4e;
+      color: white;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #dde3ea;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #1f4e79;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:nth-child(even) {
+      background: #f9fbfd;
+    }
+
+    .badge {
+      padding: 5px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .status-not-started { background: #e9ecef; color: #333; }
+    .status-in-progress { background: #d1ecf1; color: #0c5460; }
+    .status-on-hold { background: #fff3cd; color: #856404; }
+    .status-completed { background: #d4edda; color: #155724; }
+    .status-cancelled { background: #f8d7da; color: #721c24; }
+
+    .priority-low { background: #d4edda; color: #155724; }
+    .priority-medium { background: #fff3cd; color: #856404; }
+    .priority-high { background: #f8d7da; color: #721c24; }
+    .priority-critical { background: #721c24; color: white; }
+
+    .table-wrapper {
+      overflow-x: auto;
+      max-height: 600px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .summary-box {
+      background: #f8fafc;
+      border-left: 5px solid #1f4e79;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .summary-box h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #1f4e79;
+    }
+
+    .summary-box p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      color: #555;
+    }
+
+    @media (max-width: 1100px) {
+      .form-grid, .filters, .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .full-width, .half-width {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .form-grid, .filters, .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .full-width, .half-width {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IT Task List Management</h1>
+    <p>Register, assign, track, and review departmental tasks</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2 class="section-title">Task Registration Form</h2>
+      <form id="taskForm">
+        <input type="hidden" id="editIndex" />
+        <div class="form-grid">
+          <div>
+            <label for="taskTitle">Task Title *</label>
+            <input type="text" id="taskTitle" required placeholder="Enter task title" />
+          </div>
+
+          <div>
+            <label for="taskProject">Task Project *</label>
+            <input type="text" id="taskProject" required placeholder="Project name" />
+          </div>
+
+          <div>
+            <label for="createdBy">Created By *</label>
+            <select id="createdBy" required>
+              <option value="">Select creator</option>
+              <option>Dr. Nasser</option>
+              <option>Mh ElMahdy</option>
+              <option>M Saleh</option>
+              <option>M Nawaz</option>
+              <option>M Hassinen</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="assignedTo">Assigned To *</label>
+            <select id="assignedTo" required>
+              <option value="">Select assignee</option>
+              <option>Dr. Nasser</option>
+              <option>Mh ElMahdy</option>
+              <option>M Saleh</option>
+              <option>M Nawaz</option>
+              <option>M Hassinen</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="owner">Owner / Accountable Person</label>
+            <input type="text" id="owner" placeholder="Task owner" />
+          </div>
+
+          <div>
+            <label for="department">Department / Unit</label>
+            <input type="text" id="department" placeholder="Department or unit" />
+          </div>
+
+          <div>
+            <label for="priority">Importance / Priority *</label>
+            <select id="priority" required>
+              <option value="">Select priority</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Critical</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="status">Task Status *</label>
+            <select id="status" required>
+              <option>Not Started</option>
+              <option>In Progress</option>
+              <option>On Hold</option>
+              <option>Completed</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" />
+          </div>
+
+          <div>
+            <label for="dueDate">Due Date</label>
+            <input type="date" id="dueDate" />
+          </div>
+
+          <div>
+            <label for="completion">Completion %</label>
+            <input type="number" id="completion" min="0" max="100" value="0" />
+          </div>
+
+          <div>
+            <label for="reviewDate">Review Date</label>
+            <input type="date" id="reviewDate" />
+          </div>
+
+          <div class="full-width">
+            <label for="arabicTask">المهام / Task</label>
+            <textarea id="arabicTask" placeholder="اكتب تفاصيل المهمة"></textarea>
+          </div>
+
+          <div>
+            <label for="arabicStatus">الحاله / Status</label>
+            <select id="arabicStatus">
+              <option value="">اختر الحالة</option>
+              <option>لم تبدأ</option>
+              <option>قيد التنفيذ</option>
+              <option>مكتملة</option>
+              <option>متأخرة</option>
+              <option>متوقفة</option>
+              <option>ملغاة</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="arabicImportance">الأهمية / Importance</label>
+            <select id="arabicImportance">
+              <option value="">اختر الأهمية</option>
+              <option>منخفضة</option>
+              <option>متوسطة</option>
+              <option>عالية</option>
+              <option>حرجة</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="arabicDeadline">الموعد النهائي / Deadline</label>
+            <input type="date" id="arabicDeadline" />
+          </div>
+
+          <div>
+            <label for="arabicOwner">المالك / Owner</label>
+            <input type="text" id="arabicOwner" placeholder="اسم المالك" />
+          </div>
+
+          <div class="half-width">
+            <label for="currentSituation">الوضع الحالي / Current Situation</label>
+            <textarea id="currentSituation" placeholder="وضح الوضع الحالي للمهمة"></textarea>
+          </div>
+
+          <div class="half-width">
+            <label for="nextSteps">الخطوات القادمة / Next Steps</label>
+            <textarea id="nextSteps" placeholder="حدد الخطوات القادمة"></textarea>
+          </div>
+
+          <div class="half-width">
+            <label for="suggestedResponse">الرد المقترح / Suggested Response</label>
+            <textarea id="suggestedResponse" placeholder="اكتب الرد أو الإجراء المقترح"></textarea>
+          </div>
+
+          <div class="half-width">
+            <label for="arabicNotes">الملاحظات / Notes</label>
+            <textarea id="arabicNotes" placeholder="أضف أي ملاحظات إضافية"></textarea>
+          </div>
+
+          <div class="full-width">
+            <label for="description">Task Description</label>
+            <textarea id="description" placeholder="Describe the task details, expected output, and scope"></textarea>
+          </div>
+
+          <div class="half-width">
+            <label for="notes">Review Notes / Updates</label>
+            <textarea id="notes" placeholder="Add latest progress notes or review comments"></textarea>
+          </div>
+
+          <div class="half-width">
+            <label for="risk">Risks / Blockers</label>
+            <textarea id="risk" placeholder="Mention any delay reason, dependency, or blocker"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Save Task</button>
+          <button type="button" class="btn-secondary" onclick="resetForm()">Clear Form</button>
+          <button type="button" class="btn-success" onclick="exportCSV()">Export CSV</button>
+          <button type="button" class="btn-danger" onclick="clearAllTasks()">Clear All Tasks</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Task Dashboard</h2>
+      <div class="summary-grid">
+        <div class="summary-box"><h3 id="totalTasks">0</h3><p>Total Tasks</p></div>
+        <div class="summary-box"><h3 id="inProgressTasks">0</h3><p>In Progress</p></div>
+        <div class="summary-box"><h3 id="completedTasks">0</h3><p>Completed</p></div>
+        <div class="summary-box"><h3 id="criticalTasks">0</h3><p>Critical</p></div>
+        <div class="summary-box"><h3 id="overdueTasks">0</h3><p>Overdue</p></div>
+      </div>
+
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search task, project, owner..." onkeyup="renderTasks()" />
+        <select id="statusFilter" onchange="renderTasks()">
+          <option value="">All Statuses</option>
+          <option>Not Started</option>
+          <option>In Progress</option>
+          <option>On Hold</option>
+          <option>Completed</option>
+          <option>Cancelled</option>
+        </select>
+        <select id="priorityFilter" onchange="renderTasks()">
+          <option value="">All Priorities</option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+          <option>Critical</option>
+        </select>
+        <select id="assigneeFilter" onchange="renderTasks()">
+          <option value="">All Assignees</option>
+          <option>Dr. Nasser</option>
+          <option>Mh ElMahdy</option>
+          <option>M Saleh</option>
+          <option>M Nawaz</option>
+          <option>M Hassinen</option>
+        </select>
+        <button class="btn-secondary" onclick="resetFilters()">Reset Filters</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Task Title</th>
+              <th>Project</th>
+              <th>Created By</th>
+              <th>Assigned To</th>
+              <th>Owner</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Start</th>
+              <th>Due</th>
+              <th>Completion</th>
+              <th>Review Date</th>
+              <th>Description</th>
+              <th>Notes</th>
+              <th>Risks</th>
+              <th>المهام</th>
+              <th>الحاله</th>
+              <th>الوضع الحالي</th>
+              <th>الخطوات القادمة</th>
+              <th>الرد المقترح</th>
+              <th>الملاحظات</th>
+              <th>الأهمية</th>
+              <th>الموعد النهائي</th>
+              <th>المالك</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="taskTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('startDate').valueAsDate = new Date();
+      renderTasks();
+    });
+
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const task = {
+        title: document.getElementById('taskTitle').value.trim(),
+        project: document.getElementById('taskProject').value.trim(),
+        createdBy: document.getElementById('createdBy').value,
+        assignedTo: document.getElementById('assignedTo').value,
+        owner: document.getElementById('owner').value.trim(),
+        department: document.getElementById('department').value.trim(),
+        priority: document.getElementById('priority').value,
+        status: document.getElementById('status').value,
+        startDate: document.getElementById('startDate').value,
+        dueDate: document.getElementById('dueDate').value,
+        completion: document.getElementById('completion').value,
+        reviewDate: document.getElementById('reviewDate').value,
+        arabicTask: document.getElementById('arabicTask').value.trim(),
+        arabicStatus: document.getElementById('arabicStatus').value,
+        currentSituation: document.getElementById('currentSituation').value.trim(),
+        nextSteps: document.getElementById('nextSteps').value.trim(),
+        suggestedResponse: document.getElementById('suggestedResponse').value.trim(),
+        arabicNotes: document.getElementById('arabicNotes').value.trim(),
+        arabicImportance: document.getElementById('arabicImportance').value,
+        arabicDeadline: document.getElementById('arabicDeadline').value,
+        arabicOwner: document.getElementById('arabicOwner').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        notes: document.getElementById('notes').value.trim(),
+        risk: document.getElementById('risk').value.trim(),
+        updatedAt: new Date().toLocaleString()
+      };
+
+      const editIndex = document.getElementById('editIndex').value;
+
+      if (editIndex === '') {
+        tasks.push(task);
+      } else {
+        tasks[editIndex] = task;
+      }
+
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      resetForm();
+      renderTasks();
+    });
+
+    function renderTasks() {
+      const tbody = document.getElementById('taskTableBody');
+      tbody.innerHTML = '';
+
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('statusFilter').value;
+      const priorityFilter = document.getElementById('priorityFilter').value;
+      const assigneeFilter = document.getElementById('assigneeFilter').value;
+
+      const filteredTasks = tasks.filter(task => {
+        const text = Object.values(task).join(' ').toLowerCase();
+        return text.includes(search)
+          && (!statusFilter || task.status === statusFilter)
+          && (!priorityFilter || task.priority === priorityFilter)
+          && (!assigneeFilter || task.assignedTo === assigneeFilter);
+      });
+
+      filteredTasks.forEach((task, index) => {
+        const originalIndex = tasks.indexOf(task);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td><strong>${escapeHtml(task.title)}</strong><br><small>Updated: ${task.updatedAt}</small></td>
+          <td>${escapeHtml(task.project)}</td>
+          <td>${escapeHtml(task.createdBy)}</td>
+          <td>${escapeHtml(task.assignedTo)}</td>
+          <td>${escapeHtml(task.owner)}</td>
+          <td><span class="badge priority-${task.priority.toLowerCase()}">${task.priority}</span></td>
+          <td><span class="badge status-${task.status.toLowerCase().replaceAll(' ', '-')}">${task.status}</span></td>
+          <td>${task.startDate || ''}</td>
+          <td>${task.dueDate || ''}</td>
+          <td>${task.completion || 0}%</td>
+          <td>${task.reviewDate || ''}</td>
+          <td>${escapeHtml(task.description)}</td>
+          <td>${escapeHtml(task.notes)}</td>
+          <td>${escapeHtml(task.risk)}</td>
+          <td dir="rtl">${escapeHtml(task.arabicTask)}</td>
+          <td dir="rtl">${escapeHtml(task.arabicStatus)}</td>
+          <td dir="rtl">${escapeHtml(task.currentSituation)}</td>
+          <td dir="rtl">${escapeHtml(task.nextSteps)}</td>
+          <td dir="rtl">${escapeHtml(task.suggestedResponse)}</td>
+          <td dir="rtl">${escapeHtml(task.arabicNotes)}</td>
+          <td dir="rtl">${escapeHtml(task.arabicImportance)}</td>
+          <td>${task.arabicDeadline || ''}</td>
+          <td dir="rtl">${escapeHtml(task.arabicOwner)}</td>
+          <td>
+            <button class="btn-warning" onclick="editTask(${originalIndex})">Edit</button>
+            <button class="btn-danger" onclick="deleteTask(${originalIndex})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('totalTasks').innerText = tasks.length;
+      document.getElementById('inProgressTasks').innerText = tasks.filter(t => t.status === 'In Progress').length;
+      document.getElementById('completedTasks').innerText = tasks.filter(t => t.status === 'Completed').length;
+      document.getElementById('criticalTasks').innerText = tasks.filter(t => t.priority === 'Critical').length;
+      document.getElementById('overdueTasks').innerText = tasks.filter(t => t.dueDate && t.dueDate < today && t.status !== 'Completed').length;
+    }
+
+    function editTask(index) {
+      const task = tasks[index];
+      document.getElementById('editIndex').value = index;
+      document.getElementById('taskTitle').value = task.title;
+      document.getElementById('taskProject').value = task.project;
+      document.getElementById('createdBy').value = task.createdBy;
+      document.getElementById('assignedTo').value = task.assignedTo;
+      document.getElementById('owner').value = task.owner;
+      document.getElementById('department').value = task.department;
+      document.getElementById('priority').value = task.priority;
+      document.getElementById('status').value = task.status;
+      document.getElementById('startDate').value = task.startDate;
+      document.getElementById('dueDate').value = task.dueDate;
+      document.getElementById('completion').value = task.completion;
+      document.getElementById('reviewDate').value = task.reviewDate;
+      document.getElementById('arabicTask').value = task.arabicTask || '';
+      document.getElementById('arabicStatus').value = task.arabicStatus || '';
+      document.getElementById('currentSituation').value = task.currentSituation || '';
+      document.getElementById('nextSteps').value = task.nextSteps || '';
+      document.getElementById('suggestedResponse').value = task.suggestedResponse || '';
+      document.getElementById('arabicNotes').value = task.arabicNotes || '';
+      document.getElementById('arabicImportance').value = task.arabicImportance || '';
+      document.getElementById('arabicDeadline').value = task.arabicDeadline || '';
+      document.getElementById('arabicOwner').value = task.arabicOwner || '';
+      document.getElementById('description').value = task.description;
+      document.getElementById('notes').value = task.notes;
+      document.getElementById('risk').value = task.risk;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function deleteTask(index) {
+      if (confirm('Are you sure you want to delete this task?')) {
+        tasks.splice(index, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('taskForm').reset();
+      document.getElementById('editIndex').value = '';
+      document.getElementById('completion').value = 0;
+      document.getElementById('startDate').valueAsDate = new Date();
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('statusFilter').value = '';
+      document.getElementById('priorityFilter').value = '';
+      document.getElementById('assigneeFilter').value = '';
+      renderTasks();
+    }
+
+    function clearAllTasks() {
+      if (confirm('This will delete all saved tasks from this browser. Continue?')) {
+        tasks = [];
+        localStorage.removeItem('tasks');
+        renderTasks();
+      }
+    }
+
+    function exportCSV() {
+      if (tasks.length === 0) {
+        alert('No tasks to export.');
+        return;
+      }
+
+      const headers = ['Task Title','Project','Created By','Assigned To','Owner','Department','Priority','Status','Start Date','Due Date','Completion %','Review Date','Description','Notes','Risks','المهام','الحاله','الوضع الحالي','الخطوات القادمة','الرد المقترح','الملاحظات','الأهمية','الموعد النهائي','المالك','Updated At'];
+      const rows = tasks.map(t => [t.title,t.project,t.createdBy,t.assignedTo,t.owner,t.department,t.priority,t.status,t.startDate,t.dueDate,t.completion,t.reviewDate,t.description,t.notes,t.risk,t.arabicTask,t.arabicStatus,t.currentSituation,t.nextSteps,t.suggestedResponse,t.arabicNotes,t.arabicImportance,t.arabicDeadline,t.arabicOwner,t.updatedAt]);
+      const csvContent = [headers, ...rows].map(row => row.map(value => `"${String(value || '').replaceAll('"', '""')}"`).join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'task_list_export.csv';
+      link.click();
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  </script>
+</body>
+</html>
