@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورشة عمل الذكاء الاصطناعي – الاتصالات وتقنية المعلومات</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #1a2235;
+    --accent1: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,212,255,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 70px 20px 60px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 50%, rgba(0,212,255,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid var(--accent1);
+    color: var(--accent1);
+    font-size: 13px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 54px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent1);
+  }
+  .hero-stat .label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px 30px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.25s;
+  }
+  .tab-btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--accent2), var(--accent1));
+    border-color: transparent;
+    color: white;
+  }
+
+  .tab-content { display: none; padding: 0 20px 60px; max-width: 1100px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 30px;
+  }
+  .section-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-header p {
+    color: var(--muted);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+  }
+
+  /* AGENDA TIMELINE */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 28px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent1), var(--accent2));
+  }
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .timeline-dot {
+    width: 58px;
+    min-width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--border);
+  }
+  .timeline-body {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    flex: 1;
+    transition: border-color 0.25s;
+  }
+  .timeline-body:hover { border-color: var(--accent1); }
+  .timeline-time {
+    font-size: 12px;
+    color: var(--accent1);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .timeline-desc {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.7;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .tag-interactive { background: rgba(16,185,129,0.15); color: var(--accent3); }
+  .tag-insight { background: rgba(0,212,255,0.12); color: var(--accent1); }
+  .tag-activity { background: rgba(245,158,11,0.12); color: var(--accent4); }
+  .tag-break { background: rgba(100,116,139,0.15); color: var(--muted); }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent1); }
+  .card-icon { font-size: 32px; margin-bottom: 14px; }
+  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .card-desc { font-size: 14px; color: var(--muted); font-family: 'Tajawal', sans-serif; line-height: 1.8; }
+  .card-wow {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(124,58,237,0.12);
+    border-right: 3px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #a78bfa;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .card-wow strong { color: white; display: block; margin-bottom: 3px; font-size: 12px; }
+
+  /* TOOLS TABLE */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    border-radius: 0 0 0 80px;
+    opacity: 0.08;
+  }
+  .tool-card:nth-child(1)::before { background: var(--accent1); }
+  .tool-card:nth-child(2)::before { background: var(--accent2); }
+  .tool-card:nth-child(3)::before { background: var(--accent3); }
+  .tool-card:nth-child(4)::before { background: var(--accent4); }
+  .tool-card:nth-child(5)::before { background: #f43f5e; }
+  .tool-card:nth-child(6)::before { background: var(--accent1); }
+  .tool-card:hover { border-color: var(--accent1); transform: translateY(-2px); }
+  .tool-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .tool-use { font-size: 13px; color: var(--muted); font-family: 'Tajawal', sans-serif; margin-bottom: 12px; line-height: 1.6; }
+  .tool-tag { font-size: 11px; padding: 3px 10px; border-radius: 6px; font-weight: 700; }
+  .tool-tag.it { background: rgba(0,212,255,0.12); color: var(--accent1); }
+  .tool-tag.comm { background: rgba(124,58,237,0.12); color: #a78bfa; }
+  .tool-tag.both { background: rgba(16,185,129,0.12); color: var(--accent3); }
+
+  /* ACTIVITIES */
+  .activity-list { display: flex; flex-direction: column; gap: 20px; }
+  .activity {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .activity-num {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent2), var(--accent1));
+    color: white;
+    min-width: 48px;
+  }
+  .activity-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .activity-desc { font-size: 14px; color: var(--muted); font-family: 'Tajawal', sans-serif; line-height: 1.8; margin-bottom: 12px; }
+  .activity-steps {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .activity-steps li {
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .activity-steps li::before {
+    content: '◈  ';
+    color: var(--accent1);
+    font-size: 10px;
+  }
+  .activity-meta {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 12px; padding: 4px 12px; border-radius: 8px;
+    background: rgba(255,255,255,0.05); color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* TIPS */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .tip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .tip-icon { font-size: 26px; margin-bottom: 10px; }
+  .tip-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tip-desc { font-size: 13px; color: var(--muted); font-family: 'Tajawal', sans-serif; line-height: 1.7; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'Tajawal', sans-serif;
+  }
+
+  @media (max-width: 600px) {
+    .timeline::before { right: 22px; }
+    .timeline-dot { width: 46px; min-width: 46px; height: 46px; font-size: 18px; }
+    .activity { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🤖 دليل ورشة العمل الداخلية</div>
+  <h1>الذكاء الاصطناعي<br>في عالم الاتصالات وتقنية المعلومات</h1>
+  <p>ورشة عمل تفاعلية مصممة خصيصاً لفرق الاتصالات وتقنية المعلومات — ربط الذكاء الاصطناعي بالعمل اليومي الفعلي</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">6</div><div class="label">جلسات تفاعلية</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="label">أنشطة عملية</div></div>
+    <div class="hero-stat"><div class="num">12+</div><div class="label">أداة ذكاء اصطناعي</div></div>
+    <div class="hero-stat"><div class="num">5</div><div class="label">أفكار مفاجئة</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('agenda')">📅 الجدول الزمني</button>
+  <button class="tab-btn" onclick="showTab('topics')">🧠 المحاور الرئيسية</button>
+  <button class="tab-btn" onclick="showTab('tools')">🛠️ أدوات الذكاء الاصطناعي</button>
+  <button class="tab-btn" onclick="showTab('activities')">⚡ الأنشطة التفاعلية</button>
+  <button class="tab-btn" onclick="showTab('tips')">💡 نصائح التيسير</button>
+</div>
+
+<!-- TAB: AGENDA -->
+<div class="tab-content active" id="tab-agenda">
+  <div class="section-header">
+    <h2>🗓️ جدول ورشة العمل (يوم كامل)</h2>
+    <p>جلسة واحدة متكاملة من الصباح حتى المساء — قابلة للتكييف لنصف يوم</p>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(245,158,11,0.15);border-color:#f59e0b;">☕</div>
+      <div class="timeline-body">
+        <div class="timeline-time">8:30 – 9:00 صباحاً</div>
+        <div class="timeline-title">التسجيل والترحيب</div>
+        <div class="timeline-desc">استقبال المشاركين، توزيع ورقة "توقعاتي من الذكاء الاصطناعي" — الجميع يكتب سؤالاً واحداً يريد إجابته اليوم.</div>
+        <span class="tag tag-activity">🎯 نشاط ترحيبي</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(0,212,255,0.15);border-color:var(--accent1);">🚀</div>
+      <div class="timeline-body">
+        <div class="timeline-time">9:00 – 9:45 صباحاً</div>
+        <div class="timeline-title">الجلسة 1 — ما الذكاء الاصطناعي فعلاً؟ كسر الأساطير</div>
+        <div class="timeline-desc">
+          ليس روبوتاً ذكياً، ليس سحراً، وليس خطراً وجودياً — بل نمط إحصائي ضخم. شرح سريع لكيفية عمل LLMs بتشبيه بسيط جداً من عالم الاتصالات.
+          <br><br>
+          <strong>السؤال المفتاحي:</strong> "هل تعرف كيف يقرر ChatGPT الكلمة التالية؟" — إجابة مفاجئة!
+        </div>
+        <span class="tag tag-insight">💡 إضاءة فكرية</span>
+        <span class="tag tag-interactive">🙋 تفاعلي</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(16,185,129,0.15);border-color:var(--accent3);">🔍</div>
+      <div class="timeline-body">
+        <div class="timeline-time">9:45 – 10:45 صباحاً</div>
+        <div class="timeline-title">الجلسة 2 — الذكاء الاصطناعي في يومك العملي</div>
+        <div class="timeline-desc">
+          عرض حالات استخدام حقيقية من قطاع الاتصالات وتقنية المعلومات: تحليل الشبكات، التنبؤ بالأعطال، أتمتة التقارير، كتابة الوثائق التقنية، وتحليل تذاكر الدعم.
+        </div>
+        <span class="tag tag-activity">🔧 تطبيق عملي</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(100,116,139,0.2);border-color:var(--muted);">☕</div>
+      <div class="timeline-body">
+        <div class="timeline-time">10:45 – 11:00 صباحاً</div>
+        <div class="timeline-title">استراحة قصيرة</div>
+        <div class="timeline-desc">لكن على الشاشة: عداد تنازلي مع حقيقة مثيرة عن الذكاء الاصطناعي كل 30 ثانية.</div>
+        <span class="tag tag-break">☕ استراحة</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(124,58,237,0.15);border-color:var(--accent2);">⚡</div>
+      <div class="timeline-body">
+        <div class="timeline-time">11:00 – 12:00 ظهراً</div>
+        <div class="timeline-title">الجلسة 3 — التجربة الحية: تحدي الـ 10 دقائق</div>
+        <div class="timeline-desc">
+          كل فريق يأخذ مهمة حقيقية من عملهم اليومي ويحاول إنجازها بمساعدة الذكاء الاصطناعي في 10 دقائق. النتائج تُعرض أمام الجميع مع النقاش.
+        </div>
+        <span class="tag tag-interactive">⚡ تنافسي وممتع</span>
+        <span class="tag tag-activity">👥 عمل جماعي</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(100,116,139,0.2);border-color:var(--muted);">🍽️</div>
+      <div class="timeline-body">
+        <div class="timeline-time">12:00 – 1:00 مساءً</div>
+        <div class="timeline-title">استراحة الغداء</div>
+        <div class="timeline-desc">توزيع بطاقات "سؤال على الطاولة" — نقاشات غير رسمية حول الذكاء الاصطناعي أثناء الغداء.</div>
+        <span class="tag tag-break">🍽️ غداء</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(0,212,255,0.15);border-color:var(--accent1);">🤯</div>
+      <div class="timeline-body">
+        <div class="timeline-time">1:00 – 2:00 مساءً</div>
+        <div class="timeline-title">الجلسة 4 — ما لا تعرفه عن الذكاء الاصطناعي</div>
+        <div class="timeline-desc">
+          الجزء الأكثر إثارة: Hallucinations، Prompt Engineering، AI Agents، Fine-tuning، وكيف تقرأ مؤشرات نماذج اللغة. مفاهيم يجهلها 90% من الناس.
+        </div>
+        <span class="tag tag-insight">🤯 مفاجآت مضمونة</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(245,158,11,0.15);border-color:var(--accent4);">🛡️</div>
+      <div class="timeline-body">
+        <div class="timeline-time">2:00 – 3:00 مساءً</div>
+        <div class="timeline-title">الجلسة 5 — الأمان، الخصوصية، والأخلاقيات</div>
+        <div class="timeline-desc">
+          ما يجب ألا تشاركه مع الذكاء الاصطناعي، وكيف تحمي البيانات الحساسة، وسياسات الاستخدام المؤسسي. تمرين عملي: تحديد البيانات الآمنة مقابل الحساسة.
+        </div>
+        <span class="tag tag-activity">🛡️ حماية البيانات</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:rgba(16,185,129,0.15);border-color:var(--accent3);">🗺️</div>
+      <div class="timeline-body">
+        <div class="timeline-time">3:00 – 4:00 مساءً</div>
+        <div class="timeline-title">الجلسة 6 — خريطة طريقك مع الذكاء الاصطناعي</div>
+        <div class="timeline-desc">
+          كل مشارك يخرج بخطة شخصية: 3 مهام سيجربها مع الذكاء الاصطناعي الأسبوع القادم، وأداة واحدة سيتعلمها، وسؤال واحد سيبحث عنه. عرض النتائج + تصويت على أفضل فكرة.
+        </div>
+        <span class="tag tag-interactive">🗺️ تخطيط شخصي</span>
+        <span class="tag tag-activity">🏆 ختامي</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB: TOPICS -->
+<div class="tab-content" id="tab-topics">
+  <div class="section-header">
+    <h2>🧠 المحاور الرئيسية والإضافات المفاجئة</h2>
+    <p>محتوى مصمم خصيصاً لفرق الاتصالات وتقنية المعلومات — مع حقائق لا يعرفها أغلب المهنيين</p>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <div class="card-title">الذكاء الاصطناعي في شبكات الاتصالات</div>
+      <div class="card-desc">كيف تستخدم شركات الاتصالات الكبرى الذكاء الاصطناعي في التنبؤ بالأعطال، تحسين الشبكة، وتحليل حركة البيانات في الوقت الفعلي.</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> شركة Ericsson تستخدم الذكاء الاصطناعي للتنبؤ بأعطال أبراج الاتصال قبل 72 ساعة من حدوثها!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🖥️</div>
+      <div class="card-title">أتمتة تذاكر الدعم التقني</div>
+      <div class="card-desc">تصنيف التذاكر تلقائياً، اقتراح الحلول، وكتابة تقارير الحوادث — توفير ساعات يومية للفرق التقنية.</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> نماذج الذكاء الاصطناعي يمكنها قراءة سجلات الـ Logs وتحديد الجذر الجذري للمشكلة بدقة تصل 85%!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">كتابة الوثائق التقنية</div>
+      <div class="card-desc">توليد وثائق API، أدلة المستخدم، وبيانات المشاريع التقنية بشكل آلي من ملاحظات موجزة.</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> يمكن لـ ChatGPT كتابة SLA كامل خلال 2 دقيقة إذا أعطيته المواصفات!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <div class="card-title">الأمن السيبراني والذكاء الاصطناعي</div>
+      <div class="card-desc">كشف التهديدات، تحليل أنماط الهجمات، ومحاكاة الاختراق لاختبار الأنظمة — وكيف يستخدم المهاجمون الذكاء الاصطناعي أيضاً!</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> رسائل التصيد الاحتيالي المولّدة بالذكاء الاصطناعي يصعب اكتشافها بنسبة 3 أضعاف مقارنة بالتقليدية!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">تحليل بيانات الشبكة في الوقت الفعلي</div>
+      <div class="card-desc">الذكاء الاصطناعي يحلل ملايين الحزم في الثانية للكشف عن الشذوذات وتحسين الأداء تلقائياً.</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> بعض أنظمة الذكاء الاصطناعي تتنبأ بذروة الاستخدام وتعيد توزيع عرض النطاق قبل أن يلاحظ المستخدم!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">الـ AI Agents — مستقبل قريب جداً</div>
+      <div class="card-desc">وكلاء الذكاء الاصطناعي القادرة على تنفيذ مهام متسلسلة بشكل مستقل: من حجز اجتماع إلى تنفيذ سكريبت كامل.</div>
+      <div class="card-wow"><strong>💡 هل تعلم؟</strong> وكلاء مثل AutoGPT يمكنها البحث في الإنترنت، كتابة الكود، وتشغيله تلقائياً دون تدخل بشري!</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB: TOOLS -->
+<div class="tab-content" id="tab-tools">
+  <div class="section-header">
+    <h2>🛠️ أدوات الذكاء الاصطناعي الموصى بها</h2>
+    <p>مصنفة حسب القسم والاستخدام — مع التمييز بين ما هو مجاني وما يحتاج اشتراكاً</p>
+  </div>
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-name">🤖 ChatGPT / Claude</div>
+      <div class="tool-use">كتابة الوثائق التقنية، شرح الكود، صياغة التقارير، تحليل الأخطاء، الرد على استفسارات العملاء.</div>
+      <span class="tool-tag both">للجميع</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">💻 GitHub Copilot</div>
+      <div class="tool-use">إكمال الكود تلقائياً، اقتراح دوال، شرح الكود القديم، وكتابة Unit Tests بسرعة.</div>
+      <span class="tool-tag it">تقنية المعلومات</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">📧 Microsoft 365 Copilot</div>
+      <div class="tool-use">تلخيص الاجتماعات في Teams، صياغة رسائل البريد الإلكتروني، تحليل Excel، وإنشاء عروض PowerPoint.</div>
+      <span class="tool-tag both">للجميع</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">🔍 Perplexity AI</div>
+      <div class="tool-use">البحث التقني مع المصادر، مقارنة التقنيات، والبحث عن أحدث المعايير والبروتوكولات.</div>
+      <span class="tool-tag it">تقنية المعلومات</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">🎨 Canva AI / Adobe Firefly</div>
+      <div class="tool-use">إنشاء مواد التواصل البصرية، تقارير للإدارة، والعروض التقديمية بشكل احترافي.</div>
+      <span class="tool-tag comm">الاتصالات</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">📝 Notion AI</div>
+      <div class="tool-use">تنظيم الوثائق الداخلية، كتابة إجراءات التشغيل القياسية (SOPs)، وتلخيص المحضر الاجتماعي.</div>
+      <span class="tool-tag both">للجميع</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">📊 Tableau Pulse / Power BI AI</div>
+      <div class="tool-use">تحليل بيانات الشبكة، تقارير الأداء، والتنبؤ بالاتجاهات من خلال لغة طبيعية.</div>
+      <span class="tool-tag it">تقنية المعلومات</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">🎙️ Otter.ai / Fireflies</div>
+      <div class="tool-use">تفريغ الاجتماعات تلقائياً، استخراج قرارات ومهام العمل، وإرسالها مباشرة إلى Slack أو Teams.</div>
+      <span class="tool-tag comm">الاتصالات</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-name">🛡️ Darktrace / Vectra AI</div>
+      <div class="tool-use">الكشف عن التهديدات السيبرانية باستخدام الذكاء الاصطناعي، تحليل سلوك المستخدمين والأجهزة.</div>
+      <span class="tool-tag it">الأمن السيبراني</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB: ACTIVITIES -->
+<div class="tab-content" id="tab-activities">
+  <div class="section-header">
+    <h2>⚡ الأنشطة التفاعلية التفصيلية</h2>
+    <p>أنشطة مصممة لتحفيز النقاش، التفكير النقدي، والتطبيق الفوري</p>
+  </div>
+  <div class="activity-list">
+
+    <div class="activity">
+      <div class="activity-num">1</div>
+      <div>
+        <div class="activity-title">🎯 "من أنا؟" — تحدي تخمين الأداة</div>
+        <div class="activity-desc">المُيسر يصف أداة ذكاء اصطناعي من خلال سيناريو عمل واقعي، والمشاركون يتنافسون على تخمينها. يكشف عن أدوات مجهولة بطريقة ممتعة.</div>
+        <ul class="activity-steps">
+          <li>قسّم المشاركين لمجموعات من 4-5 أشخاص</li>
+          <li>اقرأ السيناريو: "أداة تحوّل تسجيل الاجتماع إلى محضر في 30 ثانية..."</li>
+          <li>كل مجموعة تكتب إجابتها على ورقة وترفعها في نفس الوقت</li>
+          <li>المجموعة الفائزة تشرح كيف ستستخدم الأداة في عملها</li>
+        </ul>
+        <div class="activity-meta">
+          <span class="meta-pill">⏱️ 20 دقيقة</span>
+          <span class="meta-pill">👥 جماعي</span>
+          <span class="meta-pill">🎯 تنافسي</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-num">2</div>
+      <div>
+        <div class="activity-title">⚡ تحدي "المهمة في 10 دقائق"</div>
+        <div class="activity-desc">كل فريق يختار مهمة حقيقية من عملهم اليومي ويحاول إنجازها بمساعدة الذكاء الاصطناعي. المقارنة بين الطرق التقليدية والذكاء الاصطناعي مثيرة دائماً!</div>
+        <ul class="activity-steps">
+          <li>كل فريق يكتب مهمة يفعلها عادةً في ساعة أو أكثر</li>
+          <li>يحاولون إنجازها باستخدام ChatGPT أو Claude في 10 دقائق</li>
+          <li>يسجلون: ما نجح، ما فشل، وما فاجأهم</li>
+          <li>عرض النتائج والنقاش المفتوح: كيف يمكن تحسين النتيجة؟</li>
+        </ul>
+        <div class="activity-meta">
+          <span class="meta-pill">⏱️ 30 دقيقة</span>
+          <span class="meta-pill">💻 عملي</span>
+          <span class="meta-pill">🏆 منافسة ودية</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-num">3</div>
+      <div>
+        <div class="activity-title">🕵️ اكتشف الـ Hallucination!</div>
+        <div class="activity-desc">نشاط توعوي مسلٍّ: المُيسر يطرح على الذكاء الاصطناعي أسئلة تقنية محددة، والمشاركون يصيدون الأخطاء والمعلومات المخترعة.</div>
+        <ul class="activity-steps">
+          <li>اسأل الذكاء الاصطناعي عن مواصفات تقنية محددة جداً أو حوادث محلية</li>
+          <li>المشاركون يراجعون الإجابة ويحددون ما يبدو صحيحاً وما يبدو مشكوكاً فيه</li>
+          <li>تحقق من الإجابة بمصادر رسمية</li>
+          <li>النقاش: متى تثق بالذكاء الاصطناعي ومتى تتحقق منه؟</li>
+        </ul>
+        <div class="activity-meta">
+          <span class="meta-pill">⏱️ 20 دقيقة</span>
+          <span class="meta-pill">🔍 تفكير نقدي</span>
+          <span class="meta-pill">⚠️ توعوي</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-num">4</div>
+      <div>
+        <div class="activity-title">🗺️ خريطة "ماذا يمكن أتمتته؟"</div>
+        <div class="activity-desc">كل قسم يرسم خريطة لمهامهم اليومية ويصنفها: قابل للأتمتة الكاملة، قابل للمساعدة، يحتاج إنسان فقط. نقاش ثري يكشف فرص حقيقية.</div>
+        <ul class="activity-steps">
+          <li>وزّع ورق A3 وملاحظات لاصقة ملونة على كل مجموعة</li>
+          <li>لون أخضر: مهام قابلة للأتمتة بالكامل</li>
+          <li>لون أصفر: مهام تستفيد من مساعدة الذكاء الاصطناعي</li>
+          <li>لون أحمر: مهام تحتاج حكم بشري حصراً</li>
+          <li>عرض الخرائط ومقارنة القرارات — الاختلافات تولّد أفضل النقاشات!</li>
+        </ul>
+        <div class="activity-meta">
+          <span class="meta-pill">⏱️ 35 دقيقة</span>
+          <span class="meta-pill">🗺️ استراتيجي</span>
+          <span class="meta-pill">💡 توليد أفكار</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-num">5</div>
+      <div>
+        <div class="activity-title">🛡️ لعبة "هل هذا آمن؟"</div>
+        <div class="activity-desc">بطاقات تحمل سيناريوهات مختلفة — المشاركون يقررون: هل يمكن مشاركة هذه البيانات مع الذكاء الاصطناعي؟ يبني وعياً بأمان المعلومات بطريقة ممتعة.</div>
+        <ul class="activity-steps">
+          <li>بطاقة 1: "كلمات مرور الشبكة الداخلية" → ❌ ممنوع تماماً</li>
+          <li>بطاقة 2: "وصف عام لمشكلة تقنية بدون أسماء" → ✅ آمن</li>
+          <li>بطاقة 3: "عقد مع مورد مع الأسعار" → ⚠️ يحتاج حذر</li>
+          <li>كل فريق يبرر قراره ويناقشه مع المجموعة الكاملة</li>
+        </ul>
+        <div class="activity-meta">
+          <span class="meta-pill">⏱️ 25 دقيقة</span>
+          <span class="meta-pill">🛡️ أمان المعلومات</span>
+          <span class="meta-pill">📋 بطاقات</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB: TIPS -->
+<div class="tab-content" id="tab-tips">
+  <div class="section-header">
+    <h2>💡 نصائح لمُيسّر الورشة</h2>
+    <p>من التحضير حتى الختام — لجعل الورشة لا تُنسى</p>
+  </div>
+  <div class="tips-grid">
+
+    <div class="tip">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-title">ابدأ بالتوقعات</div>
+      <div class="tip-desc">اجمع توقعات المشاركين قبل الورشة بيومين عبر Google Form، واستخدمها لتخصيص المحتوى. يشعر الجميع بأنهم مسموعون.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">📱</div>
+      <div class="tip-title">استخدم Mentimeter أو Slido</div>
+      <div class="tip-desc">استطلاعات حية، تصويت فوري، وسحابة الكلمات — تضاعف التفاعل وتكشف آراء الصامتين في المجموعة.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">🏆</div>
+      <div class="tip-title">أضف عنصر المنافسة</div>
+      <div class="tip-desc">نقاط للمجموعات طوال اليوم، وجائزة رمزية للفائزين. المنافسة الودية ترفع الطاقة وتحافظ على التركيز.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">📸</div>
+      <div class="tip-title">وثّق اللحظات</div>
+      <div class="tip-desc">اطلب من شخص تصوير الأنشطة والأفكار على الوايت بورد. الصور ترسخ التعلم وتصلح لمحتوى داخلي لاحقاً.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">🌊</div>
+      <div class="tip-title">كن مرناً مع الطاقة</div>
+      <div class="tip-desc">إذا جلسة معينة ولّدت نقاشاً حاراً — استثمر فيها ولا تقطعها. الجدول دليل لا قيد.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">🔗</div>
+      <div class="tip-title">الختام = بداية جديدة</div>
+      <div class="tip-desc">أنشئ مجموعة واتساب أو قناة Slack للمتابعة. شارع فيها أدوات ونصائح أسبوعية لمدة شهر بعد الورشة.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">❓</div>
+      <div class="tip-title">لا بأس بقول "لا أعرف"</div>
+      <div class="tip-desc">الذكاء الاصطناعي ميدان سريع التطور. صدقك حين لا تعرف إجابة يبني ثقة أكبر من ادعاء المعرفة الكاملة.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">📋</div>
+      <div class="tip-title">وزّع ملخص ما بعد الورشة</div>
+      <div class="tip-desc">في غضون 24 ساعة، أرسل ملخصاً بالنقاط الرئيسية، الأدوات الموصى بها، والأنشطة المنزلية. يضاعف الاستيعاب.</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">🔄</div>
+      <div class="tip-title">نشاط المتابعة بعد أسبوعين</div>
+      <div class="tip-desc">جلسة قصيرة 45 دقيقة: من جرّب الأدوات؟ ما الذي نجح؟ ما العوائق؟ هذه الجلسة أحياناً أفيد من الورشة الأصلية.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  🤖 دليل ورشة عمل الذكاء الاصطناعي — إدارة الاتصالات وتقنية المعلومات<br>
+  قابل للتخصيص والتعديل حسب احتياجات فريقك
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
